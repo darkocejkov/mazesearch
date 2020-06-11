@@ -23,6 +23,11 @@ The deliverables for each maze (medium & large) in combination with each algorit
 
 import sys
 import io
-from mazearray import read_maze
+from maze import Maze
 
-read_maze("./resources/bigMaze.txt")
+bigMaze = Maze("./resources/bigMaze.txt")
+bigMaze.print_maze()
+
+medMaze = Maze("./resources/mediumMaze.txt")
+medMaze.print_maze()
+
