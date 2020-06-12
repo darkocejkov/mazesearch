@@ -25,9 +25,35 @@ import sys
 import io
 from maze import Maze
 
+#load both mazes into their respective objects
 bigMaze = Maze("./resources/bigMaze.txt")
 bigMaze.print_maze()
+bigMaze.positions()
 
 medMaze = Maze("./resources/mediumMaze.txt")
 medMaze.print_maze()
+medMaze.positions()
 
+"""
+ideas:
+- 2D array to hold the maze itself
+- another 2D of the same size that holds directional info about each square of the maze
+    -   which directions we can move in AND how many actions?
+    -   ex. [3,up,left,right]
+
+- calculating distance between P and . for manhattan distance (for informed algos)
+    - by their positions within the maze
+    - we know that the first and last rows are purely walls
+    - we also know that the first and last columns are walls
+    - must also calculate manhattan distance for every square
+
+- tree or graph?
+- can either generate a tree by traversing and organizing the directions we can go by states
+- or we can traverse the maze directly as a graph
+    - BFS traversal
+        - start at P, go in each direction possible (expanding P node)
+        - from every node visited, move all possible directions
+    - DFS traversal
+        - from P pick a direction that is traversable, continue expanding the deepest node
+
+"""
