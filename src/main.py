@@ -33,13 +33,15 @@ bigMaze.positions()
 medMaze = Maze("./resources/mediumMaze.txt")
 medMaze.print_maze()
 medMaze.positions()
+#medMaze.print_directions()
 
 """
 ideas:
 - 2D array to hold the maze itself
 - another 2D of the same size that holds directional info about each square of the maze
     -   which directions we can move in AND how many actions?
-    -   ex. [3,up,left,right]
+    -   ex. [up, down, left, right]
+        - for which each direction will be a boolean indicating that it is possible to traverse that way
 
 - calculating distance between P and . for manhattan distance (for informed algos)
     - by their positions within the maze
