@@ -24,16 +24,19 @@ The deliverables for each maze (medium & large) in combination with each algorit
 import sys
 import io
 from maze import Maze
+from algo import bfs#,dfs,greedybest,astar
 
 #load both mazes into their respective objects
 bigMaze = Maze("./resources/bigMaze.txt")
-bigMaze.print_maze()
-bigMaze.positions()
+#bigMaze.print_maze()
+#bigMaze.positions()
 
 medMaze = Maze("./resources/mediumMaze.txt")
-medMaze.print_maze()
-medMaze.positions()
+#medMaze.print_maze()
+#medMaze.positions()
 #medMaze.print_directions()
+
+bfs(medMaze)
 
 """
 ideas:

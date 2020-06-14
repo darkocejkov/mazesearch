@@ -3,6 +3,7 @@
 import sys
 import io
 import array
+from node import Node
 
 class Maze:
     height = 0              #integer holding the value of the height of the maze (ie. how many rows in the array)
@@ -10,10 +11,14 @@ class Maze:
     mazeArray = [0]         #array that holds the maze
     mazeDirections = [0]    #array that holds a vector for every square, indicating which directions are possible to traverse in
     manDistance = 0         #integer value that is the Manhattan distance (sum of x and y directions) from the start to the end position
-    startPos = [0,0]        #array vector holding the coords of the start position
-    endPos = [0,0]          #array vector holding the coords of the end position
+    startPos = 0            #node holding the coords of the start position
+    endPos = 0              #node holding the coords of the end position
     wallChar = '■'
     spaceChar = '°'
+    upInd = 0
+    downInd = 1
+    leftInd = 2
+    rightInd = 3
 
     def __init__(self, filename): #constructor that reads maze file, and puts it into an array
         w = open(filename, "r")
@@ -53,9 +58,9 @@ class Maze:
                     self.mazeArray[yind][xind] = self.spaceChar #indicate the empty spaces, since we are printing with padding for clarity
                 else:
                     if(char == 'P'):
-                        self.startPos = [xind, yind]
+                        self.startPos = Node(xind, yind)
                     elif(char == '.'):
-                        self.endPos = [xind, yind]
+                        self.endPos = Node(xind, yind)
                     self.mazeArray[yind][xind] = char
                 xind+=1
 
@@ -66,23 +71,27 @@ class Maze:
         #then, for every square we check neighbouring squares and input the data
 
         #traverse 2D maze
-        for x in range(self.height): #rows
-            for y in range(self.    width): #cols
+        for x in range(1, self.height-1): #rows 
+            for y in range(1, self.width-1): #cols (check from 1 to width-1 because we know those are walls)
+                #and so that we don't have to do error correction for out of list indices
                 currentSquare = self.mazeArray[x][y]
-                #if(currentSquare != self.wallChar):
+                if(currentSquare != self.wallChar):
                     #check up (make sure to not check out of list bounds by making sure x != 0 or x != height)
                         #[row-1][col]
+                    if(self.mazeArray[x-1][y] == self.spaceChar):
+                        self.mazeDirections[x][y][self.upInd] = 1
                     #check down
+                    if(self.mazeArray[x+1][y] == self.spaceChar):
                         #[row+1][col]
+                        self.mazeDirections[x][y][self.downInd] = 1
                     #check left
                         #[row][col-1]
+                    if(self.mazeArray[x][y-1] == self.spaceChar):
+                        self.mazeDirections[x][y][self.leftInd] = 1
                     #check right
                         #[row][col+1]
-                    
-                
-
-        self.manDistance = abs((self.startPos[0] - self.endPos[0]) + (self.startPos[1] - self.endPos[1])) #calculate the manhattan distance [y1 - x1] + [y2 - y1]
-        print(f"manhattan dist: {self.manDistance}")
+                    if(self.mazeArray[x][y+1] == self.spaceChar):
+                        self.mazeDirections[x][y][self.rightInd] = 1
 
     def print_maze(self): #prints the maze
         for x in range(self.height): #prints the mazeArray
@@ -98,9 +107,15 @@ class Maze:
                     print("%c," % str(self.mazeDirections[x][y][z]), end='') #print 3D array
                 print("]",end='')
             print("|")
-    
 
-    def positions(self): #func. that prints out the positions of the start and end (deprecated)
-        print(f"start: {self.startPos[0]},{self.startPos[1]} end:{self.endPos[0]},{self.endPos[1]}")
-        #print("[col, row]")
-        print(f"{self.mazeArray[self.startPos[0]][self.startPos[1]]}")
+    def calcDistance(x, y):
+        #calculates manhattan distance between 2 arrays x and y
+        dist = abs((x[0] - y[0]) + (x[1] - y[1])) #calculate the manhattan distance [y1 - x1] + [y2 - y1]
+        return dist
+
+    def nextNodes(self, n)
+        #returns an array containing the next possible nodes from a given node, n
+        #by checking the available directions via the directions vector and translating that into nodes
+        nArray = [0, 0, 0, 0]
+        #currentNode =
+        return nArray
