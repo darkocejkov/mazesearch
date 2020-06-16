@@ -16,8 +16,8 @@ class Maze:
     manDistance = 0         #integer value that is the Manhattan distance (sum of x and y directions) from the start to the end position
     startPos = [0,0]        #node holding the coords of the start position
     endPos = [0,0]          #node holding the coords of the end position
-    wallChar = '■'
-    spaceChar = '○'#' '
+    wallChar = '%'#'■'
+    spaceChar = ' '#'○'#' '
     goalChar = '.'
     upInd = 0
     downInd = 1
@@ -143,8 +143,9 @@ class Maze:
             return 0
         else:
             self.mazeVisited[n[0]][n[1]] = 1
-            if(self.mazeArray[n[0]][n[1]] != 'P'):
-                self.mazeArray[n[0]][n[1]] = '●' #to illustrate 
+            #if(self.mazeArray[n[0]][n[1]] != 'P'):
+                #self.mazeArray[n[0]][n[1]] = '●' #to illustrate ○
+                #self.mazeArray[n[0]][n[1]] = '○'
             return 1
 
     #calculate distance between 2 nodes (arrays) (Manhattan Distance)
@@ -160,12 +161,14 @@ class Maze:
     def nextNodes(self, n):
         q = []
         curr = self.mazeDirections[n[0]][n[1]]
-        if(curr[0] == 1):
+        if(curr[0] == 1): #up
             q.append([n[0]-1, n[1]])
-        if(curr[1] == 1):
+        # if(curr[2] == 1): #left
+        #     q.append([n[0], n[1]-1])
+        if(curr[1] == 1): #down
             q.append([n[0]+1, n[1]])
-        if(curr[2] == 1):
+        if(curr[2] == 1): #left
             q.append([n[0], n[1]-1])
-        if(curr[3] == 1):
+        if(curr[3] == 1): #right
             q.append([n[0], n[1]+1])
         return q

@@ -24,11 +24,13 @@ The deliverables for each maze in combination with each algorithm:
 import sys
 import io
 from maze import Maze
-from algo import bfs#,dfs,greedybest,astar
+from algo import bfs,dfs#,greedybest,astar
 
 #load both mazes into their respective objects
 bigMaze = Maze("./resources/bigMaze.txt")
 medMaze = Maze("./resources/mediumMaze.txt")
 
-bfs(medMaze)
-bfs(bigMaze)
+#bfs(medMaze)
+#bfs(bigMaze)
+dfs(medMaze)
+#dfs(bigMaze)
