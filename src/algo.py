@@ -114,6 +114,7 @@ def dfs(maze):
     maze.print_maze()
     print(f"step cost of solution: {step_cost}")
     print(f"nodes expanded: {nodes_expanded}")
-#def greedybest(maze)
 
-#def astar(maze)
+#def greedybest(maze):
+
+#def astar(maze):
