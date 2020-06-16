@@ -10,7 +10,7 @@ class Queue:
     queue = [0]
 
     def __init__(self, m):
-        self.queue = [0 for x in range(m)]
+        self.queue = [None for x in range(m)]
         self.maxi = m
         self.size = 0
         self.front = 0
@@ -22,7 +22,8 @@ class Queue:
             print("error [push]: queue is full")
         else:
             self.queue[self.back] = n
-            size +=1
+            self.size +=1
+            self.back += 1
 
     def pop(self):
         if(self.is_empty()):
@@ -30,14 +31,14 @@ class Queue:
         else:
             n = self.queue[self.front]
             self.queue[self.front] = 0
-            size -= 1
+            self.size -= 1
+            self.front += 1
+            return n  
+        
 
     #def adjust(self):
         #use to adjust the queue indices, whenever the front nears the end of the queue index
-
-
-
-        
+        #use inside push()
 
     def is_empty(self):
         return self.size == 0
