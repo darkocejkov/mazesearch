@@ -77,7 +77,8 @@ class Maze:
         #if we didn't keep this array, we'd have no way to correctly know any Node's parent
         for x in range(0, self.height):
             for y in range(0, self.width):
-                self.mazeNodes[x][y] = Node(x, y)
+                self.mazeNodes[x][y] = Node(x, y, endPos=self.endPos, parentNode=None)
+
         
         #populate the 3D directions array to indicate possible neighbouring nodes we can visit
         #[up, down, left, right]
@@ -143,9 +144,9 @@ class Maze:
             return 0
         else:
             self.mazeVisited[n[0]][n[1]] = 1
-            #if(self.mazeArray[n[0]][n[1]] != 'P'):
-                #self.mazeArray[n[0]][n[1]] = '●' #to illustrate ○
-                #self.mazeArray[n[0]][n[1]] = '○'
+            if(self.mazeArray[n[0]][n[1]] != 'P'):
+                #self.mazeArray[n[0]][n[1]] = '●' #to illustrate the search algo
+                self.mazeArray[n[0]][n[1]] = '○'
             return 1
 
     #calculate distance between 2 nodes (arrays) (Manhattan Distance)
