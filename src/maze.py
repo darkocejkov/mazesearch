@@ -4,7 +4,8 @@ import sys
 import io
 import array
 from node import Node
-from queue import Queue
+
+#source code handling the maze, and its functions
 
 class Maze:
     height = 0              #integer holding the value of the height of the maze (ie. how many rows in the array)
@@ -19,19 +20,23 @@ class Maze:
     wallChar = '%'#'■'
     spaceChar = ' '#'○'#' '
     goalChar = '.'
-    upInd = 0
+    upInd = 0               #indices indicating the 
     downInd = 1
     leftInd = 2
     rightInd = 3
     acceptableNode = [spaceChar, goalChar] #array that holds characters we can traverse
 
-    def __init__(self, filename): #constructor that reads maze file, and puts it into an array
+    debug = 0               #bool that allows for easy on/off of printing
+
+
+    def __init__(self, filename, debug): #constructor that reads maze file, and puts it into an array
+        self.debug = debug
         w = open(filename, "r")
         wi = w.readline().replace('\n','')
         width = len(wi) #read first line from file to get the width of the maze
         w.close()
         self.width = width
-
+        
         fp = open(filename, "r") 
 
         maze = fp.read() #read entire maze from new file pointer
@@ -144,9 +149,10 @@ class Maze:
             return 0
         else:
             self.mazeVisited[n[0]][n[1]] = 1
-            if(self.mazeArray[n[0]][n[1]] != 'P'):
-                #self.mazeArray[n[0]][n[1]] = '●' #to illustrate the search algo
-                self.mazeArray[n[0]][n[1]] = '○'
+            if(self.debug):
+                if(self.mazeArray[n[0]][n[1]] != 'P'):
+                    #self.mazeArray[n[0]][n[1]] = '●' #to illustrate the search algo
+                    self.mazeArray[n[0]][n[1]] = '○'
             return 1
 
     #calculate distance between 2 nodes (arrays) (Manhattan Distance)
@@ -173,3 +179,13 @@ class Maze:
         if(curr[3] == 1): #right
             q.append([n[0], n[1]+1])
         return q
+
+    #calculate cost to node based on algorithmic path
+    def path_cost(self, n):
+        steps = 0
+        currN = self.mazeNodes[n[0]][n[1]]
+        while(currN.pNode != None):
+            currN = currN.pNode
+            steps += 1
+
+        return steps
